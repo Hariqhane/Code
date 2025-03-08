@@ -1,0 +1,96 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+       {
+            "name": "(Windows) Launch",//Windows Launch 窗口不闪退 但是断点无效
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "cmd",
+            "preLaunchTask": "C/C++: gcc.exe 生成活动文件",
+            "args": [
+                "/C",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe",
+                "&",
+                "echo.",
+                "&",
+               //  "pause"
+           ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "console":"externalTerminal",
+            
+            
+       },
+       {
+            "name": "(gdb) Launch",//gdb Launch 窗口闪退 但是断点可用
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/${fileBasenameNoExtension}.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:\\Program Files\\mingw64\\bin\\gdb.exe",// 自己电脑的gdb
+            "preLaunchTask": "C/C++: gcc.exe 生成活动文件",//这里和task.json的label相对应
+            "setupCommands": [
+               {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+               }
+
+           ]
+       }
+   ]
+ }
+// {
+//     "version": "0.2.0",
+//     "configurations": [
+//        {
+//             "name": "(Windows) Launch",
+//             "type": "cppdbg",
+//             "request": "launch",
+//             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+//             "preLaunchTask": "C/C++: gcc.exe 生成活动文件",
+//             "args": [
+//                 "/C",
+//                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
+//                 "&",
+//                 "echo.",
+//                 "&",
+//                //  "pause"
+//            ],
+//             "stopAtEntry": false,
+//             "cwd": "${workspaceFolder}",
+//             "environment": [],
+//             "externalConsole":true,
+            
+            
+//        },
+//        {
+//             "name": "(gdb) Launch",
+//             "type": "cppdbg",
+//             "request": "launch",
+//             "program": "${workspaceFolder}/${fileBasenameNoExtension}.exe",
+//             "args": [],
+//             "stopAtEntry": false,
+//             "cwd": "${workspaceFolder}",
+//             "environment": [],
+//             "externalConsole": true,
+//             "MIMode": "gdb",
+//             "miDebuggerPath": "C:\\Program Files\\mingw64\\bin\\gdb.exe",// 自己电脑的gdb
+//             "preLaunchTask": "C/C++: gcc.exe 生成活动文件",//这里和task.json的label相对应
+//             "setupCommands": [
+//                {
+//                     "description": "Enable pretty-printing for gdb",
+//                     "text": "-enable-pretty-printing",
+//                     "ignoreFailures": true
+//                }
+
+//            ]
+//        }
+//    ]
+//  }
