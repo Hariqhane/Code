@@ -1,4 +1,6 @@
-﻿; Restore folders in closing order (Ctrl+Win+T)
+﻿; 禁用CapsLock键
+SetCapsLockState, AlwaysOff
+; Restore folders in closing order (Ctrl+Win+T)
 #Persistent
 SetBatchLines, -1
 global HistoryStack := []       ; 存储关闭历史记录
@@ -88,8 +90,7 @@ HideTooltip:
     TrayTip
 return
 
-; 禁用CapsLock键
-SetCapsLockState, AlwaysOff
+
 
 ; 鼠标中键模拟Alt+E快捷键
 MButton::Send, !e
@@ -288,28 +289,28 @@ return
     Send, {End} ; Move cursor to the end of the line
     Send, `{:}` ; Correctly type ;
 return
-; Ctrl+Shift+Q, 在稻壳阅读器中添加书签时自动删除后七个字符
-^+Q::
-    Send, {F2}
-    Sleep, 50 ; 稍等一下以确保操作顺畅进行
-    Send, {Right}
-    Sleep, 50 ; 稍等一下以确保操作顺畅进行
-    Send, {Backspace 7}
-return
+; ; Ctrl+Shift+Q, 在稻壳阅读器中添加书签时自动删除后七个字符
+; ^+Q::
+;     Send, {F2}
+;     Sleep, 50 ; 稍等一下以确保操作顺畅进行
+;     Send, {Right}
+;     Sleep, 50 ; 稍等一下以确保操作顺畅进行
+;     Send, {Backspace 7}
+; return
 
-; 当按住Alt并向下滚动鼠标滚轮时，触发Win+T
-!WheelDown::
-    SendInput, {LWin Down}t{LWin Up}
-return
+; ; 当按住Alt并向下滚动鼠标滚轮时，触发Win+T
+; !WheelDown::
+;     SendInput, {LWin Down}t{LWin Up}
+; return
 
-; 定义 Ctrl+Shift+W 删除快捷方式后缀
-^+W::
-    Send, {F2}
-    Sleep, 50 ; 稍等一下以确保操作顺畅进行
-    Send, {Right}
-    Sleep, 50 ; 稍等一下以确保操作顺畅进行
-    Send, {Backspace 11}
-return
+; ; 定义 Ctrl+Shift+W 删除快捷方式后缀
+; ^+W::
+;     Send, {F2}
+;     Sleep, 50 ; 稍等一下以确保操作顺畅进行
+;     Send, {Right}
+;     Sleep, 50 ; 稍等一下以确保操作顺畅进行
+;     Send, {Backspace 11}
+; return
 
 ; 在Onenote中的上下角标快捷键, 用Ctrl+H和Ctrl和Ctrl+L
 #IfWinActive ahk_class Framework::CFrame
@@ -320,42 +321,7 @@ return
     ^L:: ; 当按下Ctrl+L时
         Send, ^{=} ; 模拟按下Ctrl+=
     return
-^!m::
-    ; 保存当前剪贴板内容
-    ClipboardBackup := ClipboardAll
 
-    ; 清空剪贴板
-    Clipboard := ""
-
-    ; 复制选中文本
-    Send ^c
-
-    ; 等待剪贴板有内容
-    ClipWait, 0.1
-    if ErrorLevel
-    {
-        MsgBox, 未能复制文本到剪贴板。
-        Clipboard := ClipboardBackup
-        return
-    }
-
-    ; 获取剪贴板文本
-    text := Clipboard
-
-    ; 执行替换
-    text := StrReplace(text, "\[", "$$")
-    text := StrReplace(text, "\]", "$$")
-    text := StrReplace(text, "\(", "$$")
-    text := StrReplace(text, "\)", "$$")
-
-    ; 将修改后的文本放回剪贴板
-    Clipboard := text
-
-    ; 粘贴修改后的文本
-    Send ^v
-
-    ; 恢复原剪贴板内容
-    Clipboard := ClipboardBackup
 return
 #IfWinActive
 ;!文字替换区
